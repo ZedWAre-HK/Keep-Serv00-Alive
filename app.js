@@ -4,9 +4,10 @@ const exec = require("child_process").exec;
 const app = express();
 const port = 3000;
 
-const user = "dajkbdsaddsa"; //此处修改为Serv00的用户名
-const nz_client = "agent.6667890.xyz:6666"; //哪吒探针 对端IP:Port
-const nz_pw = "9WK0htZwqaw1GgbJfS"; //哪吒探针 对端密钥
+const user = "SERV00_USERNAME"; //此处修改为Serv00的用户名
+const nz_client = "NEZHA_AGENT"; //哪吒探针 对端IP:Port
+const nz_pw = "NEZHA_AGENT_PASSWORD"; //哪吒探针 对端密钥
+// 下面变量无需修改
 const pName = "s5";
 const nName = "nezha-agent";
 
