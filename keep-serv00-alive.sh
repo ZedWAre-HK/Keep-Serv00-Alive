@@ -57,9 +57,9 @@ fi
 # 设置 NeZha Agent 保活
 read -p "是否设置 NeZha Agent 保活？[y/N] " setup_nezha
 if [[ "$setup_nezha" =~ ^[Yy]$ ]]; then
-    echo "NeZha Agent 建议直接填入 IP 而不是解析了Agent的域名，否则Serv00可能会把你的域名解析到127.0.0.11"
+    echo "NeZha Agent 建议直接填入 IP 而不是解析了Agent的域名，否则 Serv00 可能会把你的域名解析到127.0.0.11"
     echo "这就是为什么面板没有任何反应的原因 (不排除其他设置问题)"
-    echo "如何查看我的域名有没有被 Serv00 解析到本地？输入${GREEN}cat /etc/hosts | grep '127.0.0.11'${NC}"
+    echo -e "如何查看我的域名有没有被 Serv00 解析到本地？输入${GREEN}cat /etc/hosts | grep '127.0.0.11'${NC}"
     read -p "请输入您的 NeZha Agent 对端，格式为 IP:Port: " nezha_endpoint
     read -p "请输入您的 NeZha Agent 对端密钥: " nezha_key
     if [ -z "$nezha_endpoint" ] || [ -z "$nezha_key" ]; then
