@@ -6,9 +6,11 @@ RED='\033[0;31m'
 NC='\033[0m' # 没有颜色
 
 echo -e "${GREEN}Serv00 Socks5/NeZha Agent 保活脚本${NC}"
+echo ""
 echo -e "${GREEN}该脚本是由 hkfires/Keep-Serv00-Alive 的二次开发的${NC}"
 echo -e "${GREEN}我们深知开源社区的繁荣离不开每一位贡献者的辛勤付出和智慧结晶。${NC}"
 echo -e "${GREEN}作为原项目的二次开发者，我们郑重声明：我们尊重原作者，因此保留原作者信息。${NC}"
+echo ""
 
 # 提示确保服务是否正在运行
 echo -e "${RED}请确保 Socks5/NeZha Agent 正在运行，否则保活可能运行失败。如果重新运行此脚本将会删除原有配置信息！${NC}"
