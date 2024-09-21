@@ -17,7 +17,7 @@
 
 - SSH登录Serv00，使用交互式脚本进行配置：
   ```Serv00 Bash
-  bash <(curl -sL https://github.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/raw/refs/heads/main/keep-serv00-alive.sh)`
+  bash <(curl -sL https://github.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/raw/refs/heads/main/keep-serv00-alive.sh)```
 
 - 自此部署完成
 
