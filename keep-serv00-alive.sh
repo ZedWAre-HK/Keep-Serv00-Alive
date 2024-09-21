@@ -26,10 +26,11 @@ if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
     
     # 下载 app.js 文件
     cd ~/domains/${serv00_user}.serv00.net/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
+    rm -rf app.js
     wget https://github-mirrors.pku-edu.tech/https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
 
     # 修改 app.js 文件中的第7行，将 SERV00_USERNAME 修改为输入的用户名
-    sed -i "7s/SERV00_USERNAME/${serv00_user}/" app.js
+    sed -i '' "7s/SERV00_USERNAME/${serv00_user}/" app.js
     echo -e "${GREEN}Socks5 保活设置完成。${NC}"
 else
     echo -e "${RED}跳过 Socks5 保活设置。${NC}"
@@ -46,8 +47,8 @@ if [[ "$setup_nezha" =~ ^[Yy]$ ]]; then
     fi
     
     # 修改 app.js 文件中的第8，9行，将 NEZHA_AGENT 和 NEZHA_AGENT_PASSWORD 替换为输入的值
-    sed -i "8s/NEZHA_AGENT/${nezha_endpoint}/" app.js
-    sed -i "9s/NEZHA_AGENT_PASSWORD/${nezha_key}/" app.js
+    sed -i '' "8s/NEZHA_AGENT/${nezha_endpoint}/" app.js
+    sed -i '' "9s/NEZHA_AGENT_PASSWORD/${nezha_key}/" app.js
     echo -e "${GREEN}NeZha Agent 保活设置完成。${NC}"
 else
     echo -e "${RED}跳过 NeZha Agent 保活设置。${NC}"
