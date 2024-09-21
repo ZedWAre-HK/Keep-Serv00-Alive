@@ -4,9 +4,9 @@ const exec = require("child_process").exec;
 const app = express();
 const port = 3000;
 
-const user = "Serv00登录用户名"; // 此处修改为Serv00的用户名
-const nz_client = "agent.6667890.xyz:6666"; // 哪吒探针 对端IP:Port
-const nz_pw = ""; // 哪吒探针 对端密钥
+const user = "Serv00登录用户名"; //此处修改为Serv00的用户名
+const nz_client = "agent.6667890.xyz:6666"; //哪吒探针 对端IP:Port
+const nz_pw = ""; //哪吒探针 对端密钥
 const pName = "s5";
 const nName = "nezha-agent";
 
@@ -33,7 +33,7 @@ function keepWebAlive() {
     }
   });
 
-  // 哪吒探针（Nezha-Agent）进程
+  // Nezha-Agent 进程（与 Socks5 相同的逻辑）
   const nezhaProcess = `/home/${user}/.${nName}/${nName} -s ${nz_client} -p ${nz_pw} --report-delay 4 --disable-auto-update --disable-force-update`;
   exec(`pgrep -laf ${nName}`, (err, stdout) => {
     if (stdout.includes(nezhaProcess)) {
