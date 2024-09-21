@@ -1,37 +1,41 @@
-# Serv00服务器优雅的保活方案
-本项目是在hkfires大佬的[Github](https://github.com/hkfires/Keep-Serv00-Alive/)基础上对保活进行的改进，在部署前，请确保已经按CMLiussss[博客](https://blog.cmliussss.com/p/Serv00-Socks5/)内容完成了Socks5的部署/哪吒探针并使用正常
+# Serv00 服务器优雅保活方案
 
-在Serv00上使用Cron进行进程保活的情况下，发现Cron计划任务经常被清掉，导致进程存活时间很短，因而才有了这篇文章，对进程保活进行改进
+本项目基于 hkfires 大佬的 [Github](https://github.com/hkfires/Keep-Serv00-Alive/) 项目进行了保活改进。在部署前，请确保已按 CMLiussss [博客](https://blog.cmliussss.com/p/Serv00-Socks5/) 的内容完成 Socks5 或哪吒探针的部署，并且正常运行。
 
-这个方案利用了Serv00自带Apache服务器的Phusion Passenger插件功能，每次访问网页时可以唤醒Nodejs程序，因而不需要借助Cron就能够进行保活，自然没有了被杀Cron计划任务的烦扰
+在使用 Cron 进行进程保活时，常会遇到 Cron 任务被清除的情况，导致进程无法长时间存活。因此，本文提供了一种改进的保活方案。
+
+该方案利用 Serv00 自带的 Apache 服务器的 Phusion Passenger 插件功能，在每次访问网页时唤醒 Node.js 程序，从而无需依赖 Cron，即避免了 Cron 任务被杀的烦恼。
 
 ## 部署步骤
-- 登录Serv00面板，删除注册后自带的网站<br>
-![](imgs/1.png)
+1. 登录 Serv00 面板，删除注册后自带的网站。  
+   ![](imgs/1.png)
 
-- 点击Delete(purge website files)清空网站文件<br>
-![](imgs/2.png)
+2. 点击 "Delete (purge website files)" 清空网站文件。  
+   ![](imgs/2.png)
 
-- 创建新网站，域名填写你想用的域名，我这里使用的是注册时自带的，网站类型设置为Node.js，程序版本选择NOde.js v22.4.1
-![](imgs/3.png)
+3. 创建新网站，填写你想使用的域名（此处使用注册自带的域名），设置网站类型为 Node.js，程序版本选择 Node.js v22.4.1。  
+   ![](imgs/3.png)
 
-- SSH登录Serv00，使用交互式脚本进行配置：
-  ```
-  bash <(curl -sL https://github.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/raw/refs/heads/main/keep-serv00-alive.sh)```
+4. SSH 登录 Serv00，使用交互式脚本进行配置：
+```
+bash <(curl -sL https://github.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/raw/refs/heads/main/keep-serv00-alive.sh)
+```
 
-- 自此部署完成
+5. 部署完成。
 
 ## 测试
-- 用浏览器输入一下你创建的网站域名，正常就能看到默认的页面
+1. 在浏览器中输入你创建的网站域名，应该能够看到默认页面。  
 ![](imgs/6.png)
 
-- 页面能够正常显示，返回SSH终端，输入ps aux可以看到新开了nodejs进程，稍带片刻，就能看到你的代理进程成功启动了
+2. 返回 SSH 终端，输入 `ps aux`，可以看到新启动的 Node.js 进程；稍后代理进程也会成功启动。  
 ![](imgs/7.png)
 
-- Nodejs程序运行日志可以通过面板网站的log中查看，也可以在SSH终端里查看，日志文件的完整路径为/home/你的用户名/domains/你的网站域名/logs/error.log
+3. Node.js 程序的运行日志可以通过面板网站中的日志查看，或通过 SSH 终端查看，日志路径为：`/home/你的用户名/domains/你的网站域名/logs/error.log`
 
 ## 后续
-- SOCKS代理进程由Nodejs进程负责保活，10秒钟检查一次，因此后续只需要关注Nodejs进程的保活就可以了
-- Nodejs进程的保活，可以手动访问网站进行，也可以通过自动化方案监控网站进行，就不再赘述了
-- 自动化网页监控项目推荐[upptime](https://github.com/upptime/upptime)，不需要有服务器，只需要有Github账号就能够进行部署
-- 完结撒花~~
+- SOCKS 代理进程由 Node.js 进程负责保活，每 10 秒检查一次。因此，后续只需关注 Node.js 进程的保活。
+- Node.js 进程的保活可以通过手动访问网站或自动化监控方案进行。
+- 自动化网页监控推荐使用 [upptime](https://github.com/upptime/upptime)，不需要服务器，只需一个 Github 账号即可部署。
+
+完结撒花~~
+
