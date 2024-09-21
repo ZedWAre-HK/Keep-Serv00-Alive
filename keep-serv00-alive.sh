@@ -24,7 +24,13 @@ fi
 
 # app.js 文件
 cd ~/domains/${serv00_domain}/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
+echo "删除原配置文件"
 rm -rf app.js
+echo "将静态默认修改为动态默认"
+mv public static
+echo "安装npm express"
+npm22 install express
+echo "下载保活文件"
 wget https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
     
 # 设置 Socks5 保活
