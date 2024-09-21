@@ -29,7 +29,7 @@ if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
     # 下载 app.js 文件
     cd ~/domains/${serv00_user}.serv00.net/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
     rm -rf app.js
-    wget https://github-mirrors.pku-edu.tech/https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
+    wget https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
 
     # 修改 app.js 文件中的第7行，将 SERV00_USERNAME 修改为输入的用户名
     sed -i '' "7s/SERV00_USERNAME/${serv00_user_escaped}/" app.js
