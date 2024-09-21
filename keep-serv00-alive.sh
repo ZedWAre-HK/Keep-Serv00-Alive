@@ -11,13 +11,26 @@ echo -e "${GREEN}我们深知开源社区的繁荣离不开每一位贡献者的
 echo -e "${GREEN}作为原项目的二次开发者，我们郑重声明：我们尊重原作者，因此保留原作者信息。${NC}"
 
 # 提示确保服务是否正在运行
-echo -e "${RED}请确保 Socks5/NeZha Agent 正在运行，否则保活可能运行失败。${NC}"
+echo -e "${RED}请确保 Socks5/NeZha Agent 正在运行，否则保活可能运行失败。如果重新运行此脚本将会删除原有配置信息！${NC}"
 
+# 输入 Serv00 网站域名
+read -p "请输入您在 Serv00 设置的网站域名: " serv00_domain
+if [ -z "$serv00_domain" ]; then
+    echo -e "${RED}域名不能为空，请重试。${NC}"
+    exit 1
+fi
+
+# app.js 文件
+cd ~/domains/${serv00_domain}/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
+rm -rf app.js
+wget https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
+    
 # 设置 Socks5 保活
 read -p "是否设置 Socks5 保活？[y/N] " setup_socks5
 if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
+
     # 输入 Serv00 登陆用户名
-    read -p "请输入您的 Serv00 登陆用户名： " serv00_user
+    read -p "请输入您的 Serv00 登陆用户名: " serv00_user
     if [ -z "$serv00_user" ]; then
         echo -e "${RED}用户名不能为空，请重试。${NC}"
         exit 1
@@ -25,11 +38,6 @@ if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
     
     # 处理特殊字符转义
     serv00_user_escaped=$(echo "${serv00_user}" | sed 's/[&/\]/\\&/g')
-    
-    # 下载 app.js 文件
-    cd ~/domains/${serv00_user}.serv00.net/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
-    rm -rf app.js
-    wget https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
 
     # 修改 app.js 文件中的第7行，将 SERV00_USERNAME 修改为输入的用户名
     sed -i '' "7s/SERV00_USERNAME/${serv00_user_escaped}/" app.js
@@ -41,8 +49,8 @@ fi
 # 设置 NeZha Agent 保活
 read -p "是否设置 NeZha Agent 保活？[y/N] " setup_nezha
 if [[ "$setup_nezha" =~ ^[Yy]$ ]]; then
-    read -p "请输入您的 NeZha Agent 对端，格式为 IP:Port： " nezha_endpoint
-    read -p "请输入您的 NeZha Agent 对端密钥： " nezha_key
+    read -p "请输入您的 NeZha Agent 对端，格式为 IP:Port: " nezha_endpoint
+    read -p "请输入您的 NeZha Agent 对端密钥: " nezha_key
     if [ -z "$nezha_endpoint" ] || [ -z "$nezha_key" ]; then
         echo -e "${RED}NeZha Agent 对端或密钥不能为空，请重试。${NC}"
         exit 1
