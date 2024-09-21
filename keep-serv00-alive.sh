@@ -16,16 +16,6 @@ echo -e "${RED}请确保 Socks5/NeZha Agent 正在运行，否则保活可能运
 # 设置 Socks5 保活
 read -p "是否设置 Socks5 保活？[y/N] " setup_socks5
 if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
-    read -p "请输入您的 Serv00 网站域名 (例如：example.serv00.net)： " domain
-    if [ -z "$domain" ]; then
-        echo -e "${RED}域名不能为空，请重试。${NC}"
-        exit 1
-    fi
-    
-    # 下载 app.js 文件
-    cd ~/domains/${domain}.serv00.net/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
-    wget https://github-mirrors.pku-edu.tech/https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
-
     # 输入 Serv00 登陆用户名
     read -p "请输入您的 Serv00 登陆用户名： " serv00_user
     if [ -z "$serv00_user" ]; then
@@ -33,6 +23,11 @@ if [[ "$setup_socks5" =~ ^[Yy]$ ]]; then
         exit 1
     fi
     
+    
+    # 下载 app.js 文件
+    cd ~/domains/${serv00_user}.serv00.net/public_nodejs/ || { echo -e "${RED}目录不存在，请检查域名。${NC}"; exit 1; }
+    wget https://github-mirrors.pku-edu.tech/https://raw.githubusercontent.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/refs/heads/main/app.js
+
     # 修改 app.js 文件中的第7行，将 SERV00_USERNAME 修改为输入的用户名
     sed -i "7s/SERV00_USERNAME/${serv00_user}/" app.js
     echo -e "${GREEN}Socks5 保活设置完成。${NC}"
