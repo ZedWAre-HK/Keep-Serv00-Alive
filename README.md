@@ -1,5 +1,5 @@
 # Serv00服务器优雅的保活方案
-本项目是在CMLiussss大佬的[博客](https://blog.cmliussss.com/p/Serv00-Socks5/)基础上对保活进行的改进，在部署前，请确保已经按博客内容完成了Socks5的部署并使用正常
+本项目是在hkfires大佬的[Github](https://github.com/hkfires/Keep-Serv00-Alive/)基础上对保活进行的改进，在部署前，请确保已经按CMLiussss[博客](https://blog.cmliussss.com/p/Serv00-Socks5/)内容完成了Socks5的部署/哪吒探针并使用正常
 
 在Serv00上使用Cron进行进程保活的情况下，发现Cron计划任务经常被清掉，导致进程存活时间很短，因而才有了这篇文章，对进程保活进行改进
 
@@ -15,13 +15,8 @@
 - 创建新网站，域名填写你想用的域名，我这里使用的是注册时自带的，网站类型设置为Node.js，程序版本选择NOde.js v22.4.1
 ![](imgs/3.png)
 
-- SSH登录Serv00，输入cd domains/你的网站域名/public_nodejs/
-- 由于Serv00的Apache设置的是静态优先，因而此处public文件夹下不能有index.html，否则会显示静态页面，而不会执行nodejs程序，我选择的是直接将public改名为static，执行mv public static
-- 执行npm22 install express
-![](imgs/4.png)
-
-- 修改app.js的第7行，填写你自己的Serv00用户名，再将app.js上传到服务器，完整路径是/home/你的用户名/domains/你的网站域名/public_nodejs/，修改完成后public_nodejs目录下应该和我一样
-![](imgs/5.png)
+- SSH登录Serv00，使用交互式脚本进行配置：
+  `bash <(curl -sL https://github.com/ZedWAre-NEOFTT/Keep-Serv00-Alive/raw/refs/heads/main/keep-serv00-alive.sh)`
 
 - 自此部署完成
 
