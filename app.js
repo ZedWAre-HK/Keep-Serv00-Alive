@@ -5,8 +5,8 @@ const app = express();
 const port = 3000;
 
 const user = "Serv00登录用户名"; //此处修改为Serv00的用户名
-const nz_client = "agent.6667890.xyz:6666"; //可选：哪吒探针 此处修改为对端的IP:Port，如：nezha.cloudflare.com:2096
-const nz_pw = ""; //哪吒探针 对端密钥
+const nz_client = "agent.6667890.xyz:6666"; //哪吒探针对端IP:Port
+const nz_pw = ""; //哪吒探针对端密钥
 const pName = "s5";
 const nName = "nezha-agent";
 
@@ -17,13 +17,13 @@ function keepWebAlive() {
   const formattedDate = currentDate.toLocaleDateString();
   const formattedTime = currentDate.toLocaleTimeString();
 
+  // Socks5 Process
+  const socks5Process = `/home/${user}/.${pName}/${pName} -c /home/${user}/.${pName}/config.json`;
   exec(`pgrep -laf ${pName}`, (err, stdout) => {
-    const Process = `/home/${user}/.${pName}/${pName} -c /home/${user}/.${pName}/config.json`;
-
-    if (stdout.includes(Process)) {
-      console.log(`${formattedDate}, ${formattedTime}: Web Running`);
+    if (stdout.includes(socks5Process)) {
+      console.log(`${formattedDate}, ${formattedTime}: Socks5 is Running`);
     } else {
-      exec(`nohup ${Process} >/dev/null 2>&1 &`, (err) => {
+      exec(`nohup ${socks5Process} >/dev/null 2>&1 &`, (err) => {
         if (err) {
           console.log(`${formattedDate}, ${formattedTime}: Socks5 keep alive error: ${err}`);
         } else {
@@ -32,30 +32,25 @@ function keepWebAlive() {
       });
     }
   });
-}
 
-function keepWebAlive() {
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString();
-  const formattedTime = currentDate.toLocaleTimeString();
-
+  // Nezha-Agent Process
+  const nezhaProcess = `/home/${user}/.${nName}/${nName} -s ${nz_client} -p ${nz_pw} --report-delay 4 --disable-auto-update --disable-force-update`;
   exec(`pgrep -laf ${nName}`, (err, stdout) => {
-    const Process = `/home/${user}/.nezha-agent/nezha-agent -s ${nz_client} -p ${nz_pw} --report-delay 4 --disable-auto-update --disable-force-update`;
-
-    if (stdout.includes(Process)) {
-      console.log(`${formattedDate}, ${formattedTime}: Web Running`);
+    if (stdout.includes(nezhaProcess)) {
+      console.log(`${formattedDate}, ${formattedTime}: Nezha-Agent is Running`);
     } else {
-      exec(`nohup ${Process} >/dev/null 2>&1 &`, (err) => {
+      exec(`nohup ${nezhaProcess} >/dev/null 2>&1 &`, (err) => {
         if (err) {
-          console.log(`${formattedDate}, ${formattedTime}: Nezha keep alive error: ${err}`);
+          console.log(`${formattedDate}, ${formattedTime}: Nezha-Agent keep alive error: ${err}`);
         } else {
-          console.log(`${formattedDate}, ${formattedTime}: Nezha keep alive success!`);
+          console.log(`${formattedDate}, ${formattedTime}: Nezha-Agent keep alive success!`);
         }
       });
     }
   });
 }
 
+// Check both processes every 10 seconds
 setInterval(keepWebAlive, 10 * 1000);
 
 app.listen(port, () => {
