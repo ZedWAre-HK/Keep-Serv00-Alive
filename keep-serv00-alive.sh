@@ -78,4 +78,5 @@ fi
 
 # 完成提示
 echo -e "${GREEN}已经设置完成，感谢使用！${NC}"
+echo -e "${GREEN}日志文件查看：'tail -f ~/domains/${serv00_domain}/logs/error.log'"
 echo -e "${GREEN}问题汇报：TG @ZedWAre6667890${NC}"
