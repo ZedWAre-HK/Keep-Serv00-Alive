@@ -4,9 +4,9 @@ const exec = require("child_process").exec;
 const app = express();
 const port = 3000;
 
-const user = "dajkbdsaddsa"; // 此处修改为Serv00的用户名
-const nz_client = "agent.6667890.xyz:6666"; // 哪吒探针 对端IP:Port
-const nz_pw = "9WK0htZwqaw1GgbJfS"; // 哪吒探针 对端密钥
+const user = "dajkbdsaddsa"; //此处修改为Serv00的用户名
+const nz_client = "agent.6667890.xyz:6666"; //哪吒探针 对端IP:Port
+const nz_pw = "9WK0htZwqaw1GgbJfS"; //哪吒探针 对端密钥
 const pName = "s5";
 const nName = "nezha-agent";
 
@@ -33,12 +33,12 @@ function keepWebAlive() {
     }
   });
 
-  // Nezha-Agent 进程（简化匹配，检测 nezha-agent 是否存在）
+  // Nezha-Agent 进程（与 Socks5 相同的逻辑）
+  const nezhaProcess = `/home/${user}/.${nName}/${nName} -s ${nz_client} -p ${nz_pw} --report-delay 4 --disable-auto-update --disable-force-update`;
   exec(`pgrep -laf ${nName}`, (err, stdout) => {
-    if (stdout.includes(nName)) {
+    if (stdout.includes(nezhaProcess)) {
       console.log(`${formattedDate}, ${formattedTime}: Nezha-Agent 正在运行`);
     } else {
-      const nezhaProcess = `/home/${user}/.${nName}/${nName} -s ${nz_client} -p ${nz_pw} --report-delay 4 --disable-auto-update --disable-force-update`;
       exec(`nohup ${nezhaProcess} >/dev/null 2>&1 &`, (err) => {
         if (err) {
           console.log(`${formattedDate}, ${formattedTime}: Nezha-Agent 保持存活出错: ${err}`);
