@@ -76,6 +76,9 @@ else
     echo -e "${RED}跳过 NeZha Agent 保活设置。${NC}"
 fi
 
+# No Reason.
+curl -sk https://${serv00_domain} > /dev/null 2>&1
+
 # 完成提示
 echo -e "${GREEN}已经设置完成，感谢使用！${NC}"
 echo -e "${GREEN}日志文件查看：'tail -f ~/domains/${serv00_domain}/logs/error.log'"
