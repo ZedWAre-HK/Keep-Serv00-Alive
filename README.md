@@ -1,3 +1,7 @@
+# 前文：
+
+Serv00 逐渐成为过去式，因此本项目将归档，不再会提供任何更新，请谨慎使用。
+
 # Serv00 服务器优雅保活方案
 
 本项目基于 hkfires 大佬的 [Github](https://github.com/hkfires/Keep-Serv00-Alive/) 项目进行了保活改进。在部署前，请确保已按 CMLiussss [博客](https://blog.cmliussss.com/p/Serv00-Socks5/) 的内容完成 Socks5 或哪吒探针的部署，并且正常运行。
